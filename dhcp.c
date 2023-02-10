@@ -582,6 +582,7 @@ ATTR_NONNULL_ALL int dhcp_ack(int socket, dhcp_packet* request, ddhcp_block* lea
   }
 
   DEBUG("dhcp_ack(...): offering address %i %s\n", lease_index, inet_ntoa(packet->yiaddr));
+  hook_address(HOOK_BEFORE_LEASE, &packet->yiaddr, (uint8_t*) &packet->chaddr, config);
   statistics_record(config, STAT_DHCP_SEND_PKG, 1);
   statistics_record(config, STAT_DHCP_SEND_ACK, 1);
   ssize_t bytes_send = dhcp_packet_send(socket, packet);
