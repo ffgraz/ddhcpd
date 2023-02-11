@@ -3,7 +3,6 @@
 #include "tools.h"
 
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 
 ATTR_NONNULL_ALL void hook_address(uint8_t type, struct in_addr* address, uint8_t* chaddr, ddhcp_config* config) {
@@ -35,8 +34,12 @@ ATTR_NONNULL_ALL void hook_address(uint8_t type, struct in_addr* address, uint8_
     action = (char*)"inform";
     break;
 
-  case HOOK_BEFORE_LEASE:
-    action = (char*)"beforelease";
+  case HOOK_CLAIM:
+    action = (char*)"claim";
+    break;
+
+  case HOOK_CLAIM_RELEASE:
+    action = (char*)"claimrelease";
     break;
 
   default:
